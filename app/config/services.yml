@@ -1,0 +1,17 @@
+services:
+    app.exception_subscriber:
+        class: AppBundle\EventSubscriber\ExceptionListener
+        arguments:
+            - '@jms_serializer'
+        tags:
+            - { name: kernel.event_subscriber}
+
+
+
+    app.weather:
+        class : AppBundle\Service\Weather
+        arguments:
+            - '@jms_serializer'
+            - '@csa_guzzle.client.weather'
+            - '@logger'
+            - %weather_api_key%
